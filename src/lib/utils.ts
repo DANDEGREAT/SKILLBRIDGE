@@ -31,7 +31,10 @@ export function getInitials(firstName: string, lastName: string): string {
 }
 
 export function getAvatarColor(name: string): string {
-  const colors = ['bg-primary', 'bg-accent', 'bg-success', 'bg-power', 'bg-primary-mid', 'bg-accent-mid'];
+  const colors = [
+    'bg-primary', 'bg-accent', 'bg-success', 'bg-power',
+    'bg-primary-mid', 'bg-accent-mid',
+  ];
   const hash = name.split('').reduce((acc, c) => acc + c.charCodeAt(0), 0);
   return colors[hash % colors.length];
 }
@@ -54,7 +57,10 @@ export function maskNin(nin: string): string {
   return nin.slice(0, 5) + '****' + nin.slice(-2);
 }
 
-export function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): (...args: Parameters<T>) => void {
+export function debounce<T extends (...args: any[]) => void>(
+  fn: T,
+  delay: number
+): (...args: Parameters<T>) => void {
   let timer: ReturnType<typeof setTimeout>;
   return (...args: Parameters<T>) => {
     clearTimeout(timer);
@@ -76,6 +82,7 @@ export function passwordStrength(password: string): { score: number; label: stri
   if (/[A-Z]/.test(password)) score++;
   if (/[0-9]/.test(password)) score++;
   if (/[^A-Za-z0-9]/.test(password)) score++;
+
   const labels = ['Very Weak', 'Weak', 'Fair', 'Strong', 'Very Strong'];
   const colors = ['#B22222', '#B22222', '#E8960A', '#1A6B3C', '#1A6B3C'];
   const idx = Math.min(score, 4);
@@ -97,20 +104,31 @@ export function validateNin(nin: string): boolean {
 
 export function tradeIcon(trade: string): string {
   const map: Record<string, string> = {
-    'Electrician': 'Zap', 'Plumber': 'Droplet', 'AC & Cooling': 'Wind',
-    'Carpenter': 'Hammer', 'Painter': 'Paintbrush', 'Mason': 'Building2',
-    'Electronics': 'Cpu', 'Moving': 'Truck',
+    'Electrician': 'Zap',
+    'Plumber': 'Droplet',
+    'AC & Cooling': 'Wind',
+    'Carpenter': 'Hammer',
+    'Painter': 'Paintbrush',
+    'Mason': 'Building2',
+    'Electronics': 'Cpu',
+    'Moving': 'Truck',
   };
   return map[trade] || 'Wrench';
 }
 
-export const TRADES = ['Electrician', 'Plumber', 'AC & Cooling', 'Carpenter', 'Painter', 'Mason', 'Electronics', 'Moving'];
+export const TRADES = [
+  'Electrician', 'Plumber', 'AC & Cooling', 'Carpenter',
+  'Painter', 'Mason', 'Electronics', 'Moving',
+];
+
 export const CITIES = ['Lagos', 'Abuja', 'Port Harcourt', 'Kano', 'Ibadan'];
 
 export function distance(lat1: number, lng1: number, lat2: number, lng2: number): number {
   const R = 6371;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
   const dLng = ((lng2 - lng1) * Math.PI) / 180;
-  const a = Math.sin(dLat / 2) ** 2 + Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos((lat1 * Math.PI) / 180) * Math.cos((lat2 * Math.PI) / 180) * Math.sin(dLng / 2) ** 2;
   return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }

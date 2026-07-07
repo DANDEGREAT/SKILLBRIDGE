@@ -22,9 +22,15 @@ export const useUIStore = create<UIState>((set) => ({
   toasts: [],
   addToast: (toast) => {
     const id = Date.now().toString(36) + Math.random().toString(36).substring(2, 6);
-    set((state) => ({ toasts: [...state.toasts, { ...toast, id }].slice(-4) }));
+    set((state) => ({
+      toasts: [...state.toasts, { ...toast, id }].slice(-4),
+    }));
     const duration = toast.duration || 4000;
-    setTimeout(() => { set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })); }, duration);
+    setTimeout(() => {
+      set((state) => ({
+        toasts: state.toasts.filter((t) => t.id !== id),
+      }));
+    }, duration);
   },
   removeToast: (id) => set((state) => ({ toasts: state.toasts.filter((t) => t.id !== id) })),
   mobileNavOpen: false,
