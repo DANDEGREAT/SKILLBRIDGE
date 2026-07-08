@@ -4,7 +4,6 @@ import { motion, useInView } from 'framer-motion';
 import {
   Zap, Droplet, Wind, Hammer, Paintbrush, Building2, Cpu, Truck,
   ShieldCheck, MapPin, Lock, Star, MessageSquare, Award, ArrowRight,
-  CheckCircle2, Users, Briefcase, TrendingUp,
 } from 'lucide-react';
 import { useAuthStore } from '../store/auth';
 import { Button } from '../components/ui/Button';
@@ -50,7 +49,7 @@ const trustPills = ['5,000+ Verified', '25,000+ Jobs', '\u20A60 Fraud', '4.8\u26
 function CountUp({ value, suffix, prefix, decimal }: { value: number; suffix?: string; prefix?: string; decimal?: boolean }) {
   const [count, setCount] = useState(0);
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
+  const inView = useInView(ref, { once: true, amount: 0.3 });
 
   useEffect(() => {
     if (inView) {
@@ -131,6 +130,23 @@ function RotatingTrustPill() {
         {trustPills[index]}
       </motion.span>
     </div>
+  );
+}
+
+function FadeInSection({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, amount: 0.15 });
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+      transition={{ duration: 0.4, delay, ease: 'easeOut' }}
+      className={className}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -217,29 +233,17 @@ export default function Home() {
 
       {/* Trades grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-        >
+        <FadeInSection className="text-center mb-12">
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
             Find a pro for any trade
           </h2>
           <p className="text-text-2">From wiring to plumbing, we have verified experts for every job.</p>
-        </motion.div>
+        </FadeInSection>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {trades.map((trade, i) => {
             const Icon = trade.icon;
             return (
-              <motion.div
-                key={trade.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: i * 0.05 }}
-              >
+              <FadeInSection key={trade.name} delay={i * 0.05}>
                 <Link to={`/find?trade=${encodeURIComponent(trade.name)}`}>
                   <Card hover className="p-6 text-center group">
                     <div className={`w-14 h-14 rounded-2xl bg-bg-3 flex items-center justify-center mx-auto mb-4 group-hover:bg-primary/10 transition-colors`}>
@@ -248,7 +252,7 @@ export default function Home() {
                     <h3 className="font-semibold text-text">{trade.name}</h3>
                   </Card>
                 </Link>
-              </motion.div>
+              </FadeInSection>
             );
           })}
         </div>
@@ -257,39 +261,26 @@ export default function Home() {
       {/* How it works */}
       <section className="bg-bg-2 border-y border-border py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4 }}
-          >
+          <FadeInSection className="text-center mb-12">
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
               How SkillBridge works
             </h2>
             <p className="text-text-2">Three simple steps from problem to solution.</p>
-          </motion.div>
+          </FadeInSection>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { num: '01', title: 'Post your job', desc: 'Describe what you need, set your budget, and choose a preferred date. It takes less than 2 minutes.' },
               { num: '02', title: 'Verified pros bid', desc: 'KYC-verified technicians in your area send competitive bids. Compare profiles, ratings, and prices.' },
               { num: '03', title: 'Pay safely via escrow', desc: 'Your payment is held securely. Release it only when the job is done to your satisfaction.' },
             ].map((step, i) => (
-              <motion.div
-                key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: i * 0.1 }}
-                className="relative"
-              >
+              <FadeInSection key={step.num} delay={i * 0.1} className="relative">
                 <div className="font-display text-5xl font-extrabold text-primary/20 mb-4">{step.num}</div>
                 <h3 className="font-display text-xl font-bold mb-2">{step.title}</h3>
                 <p className="text-text-2 text-sm leading-relaxed">{step.desc}</p>
                 {i < 2 && (
                   <ArrowRight size={24} className="hidden md:block absolute top-0 -right-4 text-text-3" />
                 )}
-              </motion.div>
+              </FadeInSection>
             ))}
           </div>
         </div>
@@ -297,29 +288,17 @@ export default function Home() {
 
       {/* Features */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <motion.div
-          className="text-center mb-12"
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.4 }}
-        >
+        <FadeInSection className="text-center mb-12">
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
             Built for trust
           </h2>
           <p className="text-text-2">Every feature designed to protect you and your home.</p>
-        </motion.div>
+        </FadeInSection>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((feature, i) => {
             const Icon = feature.icon;
             return (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: i * 0.05 }}
-              >
+              <FadeInSection key={feature.title} delay={i * 0.05}>
                 <Card hover className="p-6 h-full">
                   <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
                     <Icon size={24} className="text-primary-mid" />
@@ -327,7 +306,7 @@ export default function Home() {
                   <h3 className="font-semibold text-text mb-2">{feature.title}</h3>
                   <p className="text-sm text-text-2 leading-relaxed">{feature.desc}</p>
                 </Card>
-              </motion.div>
+              </FadeInSection>
             );
           })}
         </div>
@@ -336,27 +315,15 @@ export default function Home() {
       {/* Testimonials */}
       <section className="bg-bg-2 border-y border-border py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.4 }}
-          >
+          <FadeInSection className="text-center mb-12">
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
               Loved by Nigerians
             </h2>
             <p className="text-text-2">Real stories from real clients across the country.</p>
-          </motion.div>
+          </FadeInSection>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
-              <motion.div
-                key={t.name}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ delay: i * 0.1 }}
-              >
+              <FadeInSection key={t.name} delay={i * 0.1}>
                 <Card className="p-6 h-full">
                   <div className="flex gap-1 mb-4">
                     {Array.from({ length: t.rating }).map((_, j) => (
@@ -373,7 +340,7 @@ export default function Home() {
                   </div>
                   <Badge variant="gold" className="mt-4">{t.trade}</Badge>
                 </Card>
-              </motion.div>
+              </FadeInSection>
             ))}
           </div>
         </div>
@@ -381,12 +348,7 @@ export default function Home() {
 
       {/* Technician CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-bg-2 to-bg-3 p-8 sm:p-12"
-        >
+        <FadeInSection className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-bg-2 to-bg-3 p-8 sm:p-12">
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
           <div className="relative flex flex-col md:flex-row items-center justify-between gap-6">
             <div>
@@ -401,7 +363,7 @@ export default function Home() {
               Register as technician <ArrowRight size={18} />
             </Button>
           </div>
-        </motion.div>
+        </FadeInSection>
       </section>
     </div>
   );
