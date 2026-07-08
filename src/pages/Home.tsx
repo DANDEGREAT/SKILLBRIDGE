@@ -217,12 +217,18 @@ export default function Home() {
 
       {/* Trades grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.4 }}
+        >
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
             Find a pro for any trade
           </h2>
           <p className="text-text-2">From wiring to plumbing, we have verified experts for every job.</p>
-        </div>
+        </motion.div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {trades.map((trade, i) => {
             const Icon = trade.icon;
@@ -231,7 +237,7 @@ export default function Home() {
                 key={trade.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.05 }}
               >
                 <Link to={`/find?trade=${encodeURIComponent(trade.name)}`}>
@@ -251,12 +257,18 @@ export default function Home() {
       {/* How it works */}
       <section className="bg-bg-2 border-y border-border py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4 }}
+          >
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
               How SkillBridge works
             </h2>
             <p className="text-text-2">Three simple steps from problem to solution.</p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               { num: '01', title: 'Post your job', desc: 'Describe what you need, set your budget, and choose a preferred date. It takes less than 2 minutes.' },
@@ -267,7 +279,7 @@ export default function Home() {
                 key={step.num}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.1 }}
                 className="relative"
               >
@@ -285,12 +297,18 @@ export default function Home() {
 
       {/* Features */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 py-20">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.4 }}
+        >
           <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
             Built for trust
           </h2>
           <p className="text-text-2">Every feature designed to protect you and your home.</p>
-        </div>
+        </motion.div>
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {features.map((feature, i) => {
             const Icon = feature.icon;
@@ -299,7 +317,7 @@ export default function Home() {
                 key={feature.title}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.05 }}
               >
                 <Card hover className="p-6 h-full">
@@ -318,19 +336,25 @@ export default function Home() {
       {/* Testimonials */}
       <section className="bg-bg-2 border-y border-border py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
-          <div className="text-center mb-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.4 }}
+          >
             <h2 className="font-display text-3xl sm:text-4xl font-extrabold mb-3">
               Loved by Nigerians
             </h2>
             <p className="text-text-2">Real stories from real clients across the country.</p>
-          </div>
+          </motion.div>
           <div className="grid md:grid-cols-3 gap-6">
             {testimonials.map((t, i) => (
               <motion.div
                 key={t.name}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{ delay: i * 0.1 }}
               >
                 <Card className="p-6 h-full">
@@ -360,7 +384,7 @@ export default function Home() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
+          viewport={{ once: true, amount: 0.2 }}
           className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-bg-2 to-bg-3 p-8 sm:p-12"
         >
           <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 rounded-full blur-3xl" />
